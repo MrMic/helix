@@ -1,44 +1,72 @@
 # language.toml config for inlay hit
 
+
+## RUST
+[language-server.rust-analyzer.config]
+check.command = "clippy"
+
 [[language]]
 name = "rust"
 auto-format = true
 
+
+## GO
 [[language]]
 name = "go"
 
-[[language]]
-name = "lua"
 
-[[language]]
-name = "html"
-formatter = { command = 'prettier', args = ["--parser", "html"] }
-auto-format = true
-
-[[language]]
-name = "json"
-formatter = { command = 'prettier', args = ["--parser", "json"] }
-auto-format = true
+## CSS
+[language-server.css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
 
 [[language]]
 name = "css"
 formatter = { command = 'prettier', args = ["--parser", "css"] }
 auto-format = true
+language-servers = ["css-language-server"]
+
+
+## HTML
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
+## EMMET LSP
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
 
 [[language]]
-name = "vue"
+name = "html"
+roots = [".git"]
+formatter = { command = 'prettier', args = ["--write", "--parser", "html"] }
 auto-format = true
-formatter = { command = "prettier", args = ["--parser", "vue"] }
-# language-servers = ["vue-language-server"]
+language-servers = ["angular","vscode-html-language-server", "emmet-lsp"]
 
-# [language-server.vue-language-server]
-# command = "vue-language-server"
-# args = "--stdio"
 
+## JAVASCRIPT
 [[language]]
-name = "typescript"
+name = "javascript"
+file-types=["jsx", "js"]
 formatter = { command = 'prettier', args = ["--parser", "typescript"] }
 auto-format = true
+
+
+## TYPESCRIPT
+[language-server.angular]
+command = "ngserver"
+args = [
+  "--stdio",
+  "--tsProbeLocations",
+  ".",
+  "--ngProbeLocations",
+  ".",
+]
+
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
 
 [language-server.typescript-language-server]
 command = "typescript-language-server"
@@ -46,25 +74,92 @@ args = ["--stdio"]
 # config = { hostinfo = "helix", inlayHintsOptions = { "includeInlayFunctionParameterTypeHints" = true } }
 
 [[language]]
-name = "javascript"
-formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+name = "typescript"
+# file-types=["tsx", "ts"]
+roots = ["tsconfig.json"]
+formatter = { command = "biome", args = ["format", "--stdin-file-path","*.ts"]}
 auto-format = true
+language-servers = ["angular","typescript-language-server", "eslint"]
+
+
+## JSON
+[[language]]
+name = "json"
+formatter = { command = 'prettier', args = ["--parser", "json"] }
+auto-format = true
+
+
+## LUA
+[[language]]
+name = "lua"
+
+
+## PHP
+[language-server.phpactor]
+command = "phpactor"
+args = [ "language-server" ]
 
 [[language]]
 name = "php"
 language-servers = [ "phpactor" ]
 
-[language-server.phpactor]
-command = "phpactor"
-args = [ "language-server" ]
+## PYTHON
+[language-server.pyright.config.python.analysis]
+typeCheckingMode = "basic"
+
+[language-server.ruff]
+command = "ruff-lsp"
+
+[language-server.ruff.config.settings]
+args = ["--ignore", "E501"]
+
+[[language]]
+name = "python"
+formatter = { command = 'black', args = ["--line-length", "88", "--quiet", "-"] }
+auto-format = true
+language-servers = ["ruff", "pyright"]
+
+# [language.formatter]
+# command = "black"
+# args = ["--line-length", "88", "--quiet", "-"]
 
 
-# [language-server.typescript-language-server.config.typescript.inlayHints]
-# includeInlayEnumMemberValueHints = true
-# includeInlayFunctionLikeReturnTypeHints = true
-# includeInlayFunctionParameterTypeHints = true
-# includeInlayParameterNameHints = "all"
-# includeInlayParameterNameHintsWhenArgumentMatchesName = true
-# includeInlayPropertyDeclarationTypeHints = true
-# includeInlayVariableTypeHints = true
+## VUE
+[language-server.vue-language-server]
+command = "vue-language-server" 
+args = ["--stdio"]
+
+[[language]]
+name = "vue"
+auto-format = true
+file-types = ["vue"]
+injection-regex = "vue"
+roots = ["package.json"]
+scope = "text.html.vue"
+formatter = { command = "prettier", args = ["--parser", "vue"] }
+language-servers = ["vue-language-server"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

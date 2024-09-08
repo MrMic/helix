@@ -60,13 +60,22 @@ C-s = ":w" # Maps the Control-s to the typable command :w which is an alias for 
 g = { a = "code_action" } # Maps `ga` to show possible code actions
 "ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
 "backspace" = { r = ":sh cargo run", s = [":w", ":config-reload"], o = ":config-open", c = ":buffer-close"}
+C-l = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
 
 # "backspace" = { s = [":w", ":config-reload"]}
 # "backspace" = { c = [":config-open"]}
 esc = ["collapse_selection", "keep_primary_selection"]
+C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh"
 
 [keys.normal.space]
 i = ":toggle lsp.display-inlay-hints"
+pageup = ":bp"
+pagedown = ":bn"
+
+## [keys.normal.space.f]
+## d = ":sh zellij run -fc -- yazi"
+
+
 
 [keys.insert]
 "A-x" = "normal_mode" # Maps Alt-X to enter normal mode
