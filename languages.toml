@@ -79,7 +79,7 @@ name = "typescript"
 roots = ["tsconfig.json"]
 formatter = { command = "biome", args = ["format", "--stdin-file-path","*.ts"]}
 auto-format = true
-language-servers = ["angular","typescript-language-server", "eslint"]
+language-servers = ["typescript-language-server","angular", "eslint"]
 
 
 ## JSON
