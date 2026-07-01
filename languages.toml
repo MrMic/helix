@@ -191,31 +191,6 @@ formatter = { command = "prettier", args = ["--parser", "vue"] }
 language-servers = ["vue-language-server", "gpt"]
 
 
-# ## JAVA
-# [[language]]
-# name = "java"
-# language-servers = ["jdtls", "spring-boot-ls"]
-# auto-format = true
-# formatter = { command = "google-java-format", args = ["-"] }
-
-# [language-server.jdtls]
-# command = "/home/mic/.local/share/astronvim_v5/mason/bin/jdtls"
-# # command = "java"
-# args = [
-#     "-configuration", "/home/mic/.cache/jdtls/config",
-#     "-data", "/home/mic/.cache/jdtls/workspace",
-#     "--jvm-arg=-javaagent:/home/mic/.local/share/astronvim_v5/nvim-java/packages/lombok/1.18.40/lombok-1.18.40.jar"
-# ]
-
-# [language-server.spring-boot-ls]
-# command = "/home/mic/.sdkman/candidates/java/current/bin/java"
-# args = [
-#     # "-jar",
-#      "-XX:TieredStopAtLevel=1", "-Xmx1G", "-XX:+UseZGC", "-cp", "/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/classes:/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/lib/*:/home/mic/.local/share/astronvim_v5/nvim-java/packages/lombok/1.18.40/lombok-1.18.40.jar", "-Dsts.lsp.client=vscode", "-Dsts.log.file=/dev/null", "-Dspring.config.location=file:/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/classes/application.properties", "org.springframework.ide.vscode.boot.app.BootLanguageServerBootApp"
-
-# ]
-
-## JAVA 2
 ## JAVA - Optimized for Quarkus and Mockito
 [[language]]
 name = "java"
@@ -288,15 +263,13 @@ java.project.resourceFilters = ["node_modules", ".git", "target", "build"]
 [language-server.spring-boot-ls]
 command = "/home/mic/.sdkman/candidates/java/current/bin/java"
 args = [
-    "-XX:TieredStopAtLevel=1", 
-    "-Xmx1G", 
-    "-XX:+UseZGC", 
-    "-cp", 
-    "/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/classes:/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/lib/*:/home/mic/.local/share/astronvim_v5/nvim-java/packages/lombok/1.18.40/lombok-1.18.40.jar", 
-    "-Dsts.lsp.client=vscode", 
-    "-Dsts.log.file=/dev/null", 
-    "-Dspring.config.location=file:/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/classes/application.properties", 
-    "org.springframework.ide.vscode.boot.app.BootLanguageServerBootApp"
+    "-XX:TieredStopAtLevel=1",
+    "-Xmx1G",
+    "-XX:+UseZGC",
+    "-Dsts.lsp.client=vscode",
+    "-Dsts.log.file=/dev/null",
+    "-jar",
+    "/home/mic/.local/share/nvChad/mason/packages/vscode-spring-boot-tools/extension/language-server/spring-boot-language-server-2.2.0-SNAPSHOT-exec.jar"
 ]
 
 [language-server.jdtls.config.java.inlayHints]
@@ -315,7 +288,7 @@ indent = { tab-width = 2, unit = "  " }
 auto-format = true
 
 [language-server.lemminx]
-command = "/home/mic/.local/share/AstroNV4/mason/packages/lemminx/lemminx-linux"
+command = "/home/mic/.local/share/nvChad/mason/packages/lemminx/lemminx-linux-x86_64"
 args = []
 
 #########################################################
