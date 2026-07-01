@@ -1,5 +1,9 @@
 # language.toml config for inlay hit
 
+[language-server.gpt]
+command = "helix-gpt"
+## args = ["--handler", "copilot"]
+## args = ["--handler", "codeium"]
 
 ## RUST
 [language-server.rust-analyzer.config]
@@ -8,12 +12,22 @@ check.command = "clippy"
 [[language]]
 name = "rust"
 auto-format = true
+language-servers = ["rust-analyzer", "gpt"]
 
 
 ## GO
+
+[language-server.gopls]
+command = "gopls"
+config = { "gofumpt" = true, "local" = "goimports", "semanticTokens" = true, "staticcheck" = true, "verboseOutput" = true, "analyses" = { "nilness" = true, unusedparams = true, unusedwrite = true, useany = true }, usePlaceholders = true, completeUnimported = true, hints = { "assignVariableType" = true, "compositeLiteralFields" = true, "compositeLiteralTypes" = true, "constantValues" = true, "functionTypeParameters" = true, "parameterNames" = true, "rangeVariableTypes" = true } }
+
 [[language]]
 name = "go"
-
+roots = ["go.work", "go.mod"]
+auto-format = true
+comment-token = "//"
+language-servers = ["gopls", "gpt"]
+formatter = { command = "goimports" }
 
 ## CSS
 [language-server.css-language-server]
@@ -24,44 +38,48 @@ args = ["--stdio"]
 name = "css"
 formatter = { command = 'prettier', args = ["--parser", "css"] }
 auto-format = true
-language-servers = ["css-language-server"]
+language-servers = ["css-language-server", "gpt"]
 
 
 ## HTML
+[[language]]
+name = "html"
+scope = "text.html.basic"
+file-types = ["html", "htm", "xhtml"]
+roots = ["package.json", ".git"]
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["vscode-html-language-server", "emmet-ls", "gpt"]
+auto-format = true
+
 [language-server.vscode-html-language-server]
 command = "vscode-html-language-server"
 args = ["--stdio"]
 
+# Option 1: Use proper TOML table syntax (RECOMMENDED)
+[language-server.vscode-html-language-server.config]
+provideFormatter = true
+
+[language-server.vscode-html-language-server.config.embeddedLanguages]
+css = true
+javascript = true
+
+
 ## EMMET LSP
-[language-server.emmet-lsp]
+[language-server.emmet-ls]
 command = "emmet-language-server"
 args = ["--stdio"]
-
-[[language]]
-name = "html"
-roots = [".git"]
-formatter = { command = 'prettier', args = ["--write", "--parser", "html"] }
-auto-format = true
-language-servers = ["angular","vscode-html-language-server", "emmet-lsp"]
-
-
-## JAVASCRIPT
-[[language]]
-name = "javascript"
-file-types=["jsx", "js"]
-formatter = { command = 'prettier', args = ["--parser", "typescript"] }
-auto-format = true
 
 
 ## TYPESCRIPT
 [language-server.angular]
-command = "ngserver"
+command = "npx"
 args = [
+  "ngserver",
   "--stdio",
   "--tsProbeLocations",
-  ".",
+  "/home/mic/.nvm/versions/node/v20.13.1/lib/node_modules/typescript/lib, ./node_modules",
   "--ngProbeLocations",
-  ".",
+  "/home/mic/.nvm/versions/node/v20.13.1/lib/node_modules/@angular/language-server/bin, ./node_modules",
 ]
 
 [language-server.eslint]
@@ -77,9 +95,22 @@ args = ["--stdio"]
 name = "typescript"
 # file-types=["tsx", "ts"]
 roots = ["tsconfig.json"]
-formatter = { command = "biome", args = ["format", "--stdin-file-path","*.ts"]}
+formatter = { command = "biome", args = [
+  "format",
+  "--stdin-file-path",
+  "*.ts",
+] }
 auto-format = true
-language-servers = ["typescript-language-server","angular", "eslint"]
+language-servers = ["typescript-language-server", "angular", "eslint", "gpt"]
+
+
+## JAVASCRIPT
+[[language]]
+name = "javascript"
+file-types = ["jsx", "js"]
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
+auto-format = true
+language-servers = ["typescript-language-server", "gpt"]
 
 
 ## JSON
@@ -97,27 +128,47 @@ name = "lua"
 ## PHP
 [language-server.phpactor]
 command = "phpactor"
-args = [ "language-server" ]
+args = ["language-server"]
+
+[language-server.intelephense]
+command = "intelephense"
+args = ["--stdio"]
 
 [[language]]
 name = "php"
-language-servers = [ "phpactor" ]
+language-servers = ["intelephense", "phpactor", "gpt"]
+
 
 ## PYTHON
 [language-server.pyright.config.python.analysis]
 typeCheckingMode = "basic"
 
-[language-server.ruff]
-command = "ruff-lsp"
+# [language-server.ruff]
+# command = "ruff-lsp"
 
 [language-server.ruff.config.settings]
 args = ["--ignore", "E501"]
 
+[language-server.pyright]
+command = "uv"
+args = ["run", "pyright-langserver", "--stdio"]
+
+[language-server.ruff]
+command = "uv"
+args = ["run", "ruff", "server", "--preview"]
+
 [[language]]
 name = "python"
-formatter = { command = 'black', args = ["--line-length", "88", "--quiet", "-"] }
+# formatter = { command = "uv", args = [
+#   "run",
+#   "black"
+#   "--line-range",
+#   "88",
+#   "--quiet",
+#   "-",
+# ] }
 auto-format = true
-language-servers = ["ruff", "pyright"]
+language-servers = ["ruff", "pyright", "gpt"]
 
 # [language.formatter]
 # command = "black"
@@ -126,7 +177,7 @@ language-servers = ["ruff", "pyright"]
 
 ## VUE
 [language-server.vue-language-server]
-command = "vue-language-server" 
+command = "vue-language-server"
 args = ["--stdio"]
 
 [[language]]
@@ -137,29 +188,176 @@ injection-regex = "vue"
 roots = ["package.json"]
 scope = "text.html.vue"
 formatter = { command = "prettier", args = ["--parser", "vue"] }
-language-servers = ["vue-language-server"]
+language-servers = ["vue-language-server", "gpt"]
 
 
+# ## JAVA
+# [[language]]
+# name = "java"
+# language-servers = ["jdtls", "spring-boot-ls"]
+# auto-format = true
+# formatter = { command = "google-java-format", args = ["-"] }
+
+# [language-server.jdtls]
+# command = "/home/mic/.local/share/astronvim_v5/mason/bin/jdtls"
+# # command = "java"
+# args = [
+#     "-configuration", "/home/mic/.cache/jdtls/config",
+#     "-data", "/home/mic/.cache/jdtls/workspace",
+#     "--jvm-arg=-javaagent:/home/mic/.local/share/astronvim_v5/nvim-java/packages/lombok/1.18.40/lombok-1.18.40.jar"
+# ]
+
+# [language-server.spring-boot-ls]
+# command = "/home/mic/.sdkman/candidates/java/current/bin/java"
+# args = [
+#     # "-jar",
+#      "-XX:TieredStopAtLevel=1", "-Xmx1G", "-XX:+UseZGC", "-cp", "/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/classes:/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/lib/*:/home/mic/.local/share/astronvim_v5/nvim-java/packages/lombok/1.18.40/lombok-1.18.40.jar", "-Dsts.lsp.client=vscode", "-Dsts.log.file=/dev/null", "-Dspring.config.location=file:/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/classes/application.properties", "org.springframework.ide.vscode.boot.app.BootLanguageServerBootApp"
+
+# ]
+
+## JAVA 2
+## JAVA - Optimized for Quarkus and Mockito
+[[language]]
+name = "java"
+language-servers = ["jdtls", "spring-boot-ls"]
+auto-format = true
+formatter = { command = "google-java-format", args = ["-"] }
+
+[language-server.jdtls]
+command = "/home/mic/.local/share/LazyVim/mason/bin/jdtls"
+args = [
+    "-configuration", "/home/mic/.cache/jdtls/config",
+    "-data", "/home/mic/.cache/jdtls/workspace",
+    "--jvm-arg=-javaagent:/home/mic/.local/share/LazyVim/mason/packages/jdtls/lombok.jar"
+]
+
+[language-server.jdtls.config]
+# Quarkus-specific settings
+java.configuration.runtimes = [
+    { name = "JavaSE-17", path = "/home/mic/.sdkman/candidates/java/current" },
+    { name = "JavaSE-21", path = "/home/mic/.sdkman/candidates/java/current", default = true }
+]
+
+# Import organization - prioritize Quarkus and Mockito
+java.completion.importOrder = [
+    "java",
+    "javax",
+    "jakarta",
+    "io.quarkus",
+    "org.eclipse.microprofile",
+    "org.junit.jupiter",
+    "org.mockito",
+    "org.assertj",
+    "",
+    "#"
+]
+
+# Enable static imports for Mockito and JUnit
+java.completion.favoriteStaticMembers = [
+    "org.junit.jupiter.api.Assertions.*",
+    "org.mockito.Mockito.*",
+    "org.mockito.ArgumentMatchers.*",
+    "org.mockito.BDDMockito.*",
+    "org.assertj.core.api.Assertions.*",
+    "io.restassured.RestAssured.*"
+]
+
+# Quarkus dev mode support
+java.autobuild.enabled = true
+java.maxConcurrentBuilds = 2
+
+# Better code completion for annotations
+java.completion.filteredTypes = [
+    "com.sun.*",
+    "sun.*",
+    "jdk.*"
+]
+
+# Enable faster builds for Quarkus
+java.import.gradle.wrapper.enabled = true
+java.import.maven.enabled = true
+
+# Code generation preferences for Quarkus/Mockito
+java.codeGeneration.hashCodeEquals.useJava7Objects = true
+java.codeGeneration.useBlocks = true
+java.codeGeneration.generateComments = true
+
+# Quarkus-specific ignore patterns
+java.project.resourceFilters = ["node_modules", ".git", "target", "build"]
+
+[language-server.spring-boot-ls]
+command = "/home/mic/.sdkman/candidates/java/current/bin/java"
+args = [
+    "-XX:TieredStopAtLevel=1", 
+    "-Xmx1G", 
+    "-XX:+UseZGC", 
+    "-cp", 
+    "/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/classes:/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/lib/*:/home/mic/.local/share/astronvim_v5/nvim-java/packages/lombok/1.18.40/lombok-1.18.40.jar", 
+    "-Dsts.lsp.client=vscode", 
+    "-Dsts.log.file=/dev/null", 
+    "-Dspring.config.location=file:/home/mic/.local/share/astronvim_v5/nvim-java/packages/spring-boot-tools/1.55.1/extension/language-server/BOOT-INF/classes/application.properties", 
+    "org.springframework.ide.vscode.boot.app.BootLanguageServerBootApp"
+]
+
+[language-server.jdtls.config.java.inlayHints]
+parameterNames.enabled = "all"  # Show parameter names
+
+########################################################
+
+[[language]]
+name = "xml"
+scope = "text.xml"
+injection-regex = "xml"
+file-types = ["xml", "pom", "mxml", "xaml", "svg", "plist", "wsdl", "rss", "atom", "xsl", "xslt", "xsd"]
+roots = ["pom.xml", ".git"]
+language-servers = ["lemminx"]
+indent = { tab-width = 2, unit = "  " }
+auto-format = true
+
+[language-server.lemminx]
+command = "/home/mic/.local/share/AstroNV4/mason/packages/lemminx/lemminx-linux"
+args = []
+
+#########################################################
 
 
+# Properties files (application.properties, etc.)
+[[language]]
+name = "properties"
+scope = "source.properties"
+file-types = [
+    "properties",
+    "application.properties",
+    "application-dev.properties",
+    "application-prod.properties",
+    "application-test.properties",
+    "bootstrap.properties",
+    "messages.properties"
+]
+language-servers = ["properties-ls"]
+## comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
 
+[language-server.properties-ls]
+command = "vscode-properties-language-server"
+args = ["--stdio"]
 
+# YAML files (application.yml, etc.)
+[[language]]
+name = "yaml"
+file-types = [
+    "yml", "yaml",
+    "application.yml", "application.yaml",
+    "application-*.yml", "application-*.yaml"
+]
+language-servers = ["yaml-language-server"]
 
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[language-server.yaml-language-server.config.yaml]
+schemas = { "https://json.schemastore.org/spring-boot-properties" = "application*.yml" }
+completion = true
+validate = true
 
