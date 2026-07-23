@@ -1,4 +1,5 @@
-theme = "adwaita-dark"
+# theme = "tokyonight_moon"
+theme = "gruvbox_dark_hard"
 
 [editor]
 line-number = "relative"
@@ -8,6 +9,18 @@ cursorline = true
 gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 color-modes = true
 bufferline = "multiple"
+end-of-line-diagnostics = "hint"
+popup-border = "all"  # Shows borders around popups for clarity
+
+completion-trigger-len = 2
+auto-completion = true
+auto-format = true
+auto-save = true
+
+[editor.inline-diagnostics]
+# cursor-line="error"
+cursor-line = "warning"  # Show diagnostics for current line
+other-lines = "disable"  # Hide diagnostics for other lines
 
 [editor.soft-wrap]
 enable = true
@@ -15,11 +28,14 @@ enable = true
 [editor.lsp]
 display-messages = true
 display-inlay-hints = true
+auto-signature-help = true
+enable = true
+
 
 [editor.statusline]
-left = ["mode", "spinner", "version-control"]
-center = ["file-name", "position-percentage"]
-right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+left = ["mode", "version-control"]
+center = ["file-absolute-path", "position-percentage"]
+right = ["register", "spinner", "diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
 separator = "│"
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
@@ -27,7 +43,7 @@ mode.select = "SELECT"
 
 [editor.indent-guides]
 render = true
-character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+character = "▏" # Some characters that work well: "▏", "┆", "┊", "⸽"
 skip-levels = 1
 
 [editor.cursor-shape]
@@ -37,6 +53,14 @@ select = "underline"
 
 [editor.file-picker]
 hidden = false
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+'<' = '>'
 
 # [editor.whitespace]
 # render = "all"
@@ -59,13 +83,18 @@ C-s = ":w" # Maps the Control-s to the typable command :w which is an alias for 
 "C-S-esc" = "extend_line" # Maps Control-Shift-Escape to extend_line
 g = { a = "code_action" } # Maps `ga` to show possible code actions
 "ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
-"backspace" = { r = ":sh cargo run", s = [":w", ":config-reload"], o = ":config-open", c = ":buffer-close"}
-C-l = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
-
-# "backspace" = { s = [":w", ":config-reload"]}
-# "backspace" = { c = [":config-open"]}
+"backspace" = { r = ":run-shell-command cargo run", b = ":run-shell-command cargo build", t = ":run-shell-command cargo test", s = [":w", ":config-reload"], o = ":config-open", c = ":buffer-close", g = { r = ":run-shell-command go run .", b = ":run-shell-command go build ." } }
+  
 esc = ["collapse_selection", "keep_primary_selection"]
-C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh"
+# C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh"
+
+[keys.normal.C-y]
+# Open the file(s) in the current window
+y = ":sh zellij run -c -f -x 10%% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh open"
+# Open the file(s) in a vertical pane
+v = ":sh zellij run -c -f -x 10% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh vsplit"
+# Open the file(s) in a horizontal pane
+h = ":sh zellij run -c -f -x 10% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh hsplit"
 
 [keys.normal.space]
 i = ":toggle lsp.display-inlay-hints"
@@ -75,14 +104,9 @@ pagedown = ":bn"
 ## [keys.normal.space.f]
 ## d = ":sh zellij run -fc -- yazi"
 
-
-
 [keys.insert]
 "A-x" = "normal_mode" # Maps Alt-X to enter normal mode
 j = { k = "normal_mode" } # Maps `jk` to exit insert mode
 
 # create a new minor mode bound to `+`
 [keys.normal."+"]
-r = ":run-shell-command cargo run"
-b = ":run-shell-command cargo build"
-t = ":run-shell-command cargo test"
