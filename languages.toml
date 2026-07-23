@@ -12,7 +12,7 @@ check.command = "clippy"
 [[language]]
 name = "rust"
 auto-format = true
-language-servers = ["rust-analyzer", "gpt"]
+language-servers = ["rust-analyzer", "gpt", "harper-ls"]
 
 
 ## GO
@@ -26,7 +26,7 @@ name = "go"
 roots = ["go.work", "go.mod"]
 auto-format = true
 comment-token = "//"
-language-servers = ["gopls", "gpt"]
+language-servers = ["gopls", "gpt", "harper-ls"]
 formatter = { command = "goimports" }
 
 ## CSS
@@ -101,7 +101,7 @@ formatter = { command = "biome", args = [
   "*.ts",
 ] }
 auto-format = true
-language-servers = ["typescript-language-server", "angular", "eslint", "gpt"]
+language-servers = ["typescript-language-server", "angular", "eslint", "gpt", "harper-ls"]
 
 
 ## JAVASCRIPT
@@ -110,7 +110,7 @@ name = "javascript"
 file-types = ["jsx", "js"]
 formatter = { command = 'prettier', args = ["--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "gpt"]
+language-servers = ["typescript-language-server", "gpt", "harper-ls"]
 
 
 ## JSON
@@ -123,6 +123,7 @@ auto-format = true
 ## LUA
 [[language]]
 name = "lua"
+language-servers = ["harper-ls"]
 
 
 ## PHP
@@ -136,7 +137,7 @@ args = ["--stdio"]
 
 [[language]]
 name = "php"
-language-servers = ["intelephense", "phpactor", "gpt"]
+language-servers = ["intelephense", "phpactor", "gpt", "harper-ls"]
 
 
 ## PYTHON
@@ -168,7 +169,7 @@ name = "python"
 #   "-",
 # ] }
 auto-format = true
-language-servers = ["ruff", "pyright", "gpt"]
+language-servers = ["ruff", "pyright", "gpt", "harper-ls"]
 
 # [language.formatter]
 # command = "black"
@@ -188,13 +189,13 @@ injection-regex = "vue"
 roots = ["package.json"]
 scope = "text.html.vue"
 formatter = { command = "prettier", args = ["--parser", "vue"] }
-language-servers = ["vue-language-server", "gpt"]
+language-servers = ["vue-language-server", "gpt", "harper-ls"]
 
 
 ## JAVA - Optimized for Quarkus and Mockito
 [[language]]
 name = "java"
-language-servers = ["jdtls", "spring-boot-ls"]
+language-servers = ["jdtls", "spring-boot-ls", "harper-ls"]
 auto-format = true
 formatter = { command = "google-java-format", args = ["-"] }
 
@@ -333,4 +334,14 @@ args = ["--stdio"]
 schemas = { "https://json.schemastore.org/spring-boot-properties" = "application*.yml" }
 completion = true
 validate = true
+
+
+## HARPER (grammar/spell checker)
+[language-server.harper-ls]
+command = "harper-ls"
+args = ["--stdio"]
+
+[[language]]
+name = "markdown"
+language-servers = ["harper-ls"]
 
