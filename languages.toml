@@ -103,9 +103,9 @@ args = [
   "ngserver",
   "--stdio",
   "--tsProbeLocations",
-  "/home/mic/.nvm/versions/node/v22.21.1/lib/node_modules/typescript/lib, ./node_modules",
+  "/home/mic/.local/share/helix-lsp/typescript-lib, ./node_modules",
   "--ngProbeLocations",
-  "/home/mic/.nvm/versions/node/v22.21.1/lib/node_modules/@angular/language-server/bin, ./node_modules",
+  "/home/mic/.local/share/helix-lsp/angular-language-server, ./node_modules",
 ]
 
 [language-server.eslint]
@@ -245,11 +245,11 @@ auto-format = true
 formatter = { command = "google-java-format", args = ["-"] }
 
 [language-server.jdtls]
-command = "/home/mic/.local/share/LazyVim/mason/bin/jdtls"
+command = "/home/mic/.local/share/helix-lsp/jdtls/bin/jdtls"
 args = [
     "-configuration", "/home/mic/.cache/jdtls/config",
     "-data", "/home/mic/.cache/jdtls/workspace",
-    "--jvm-arg=-javaagent:/home/mic/.local/share/LazyVim/mason/packages/jdtls/lombok.jar"
+    "--jvm-arg=-javaagent:/home/mic/.local/share/helix-lsp/jdtls/lombok.jar"
 ]
 
 [language-server.jdtls.config]
@@ -315,7 +315,7 @@ args = [
     "-Dsts.lsp.client=vscode",
     "-Dsts.log.file=/dev/null",
     "-jar",
-    "/home/mic/.local/share/nvChad/mason/packages/vscode-spring-boot-tools/extension/language-server/spring-boot-language-server-2.2.0-SNAPSHOT-exec.jar"
+    "/home/mic/.local/share/helix-lsp/spring-boot-ls/spring-boot-language-server-2.2.0-SNAPSHOT-exec.jar"
 ]
 
 [language-server.jdtls.config.java.inlayHints]
@@ -334,7 +334,7 @@ indent = { tab-width = 2, unit = "  " }
 auto-format = true
 
 [language-server.lemminx]
-command = "/home/mic/.local/share/nvChad/mason/packages/lemminx/lemminx-linux-x86_64"
+command = "/home/mic/.local/share/helix-lsp/lemminx"
 args = []
 
 #########################################################
