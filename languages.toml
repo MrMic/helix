@@ -66,6 +66,9 @@ args = ["--stdio"]
 [[language]]
 name = "twig"
 language-servers = ["twiggy", "emmet-ls", "vscode-html-language-server", "tailwindcss-ls"]
+# djlint has no twig profile; jinja shares the {% %} / {{ }} syntax.
+formatter = { command = "djlint", args = ["-", "--reformat", "--quiet", "--profile=jinja"] }
+auto-format = true
 
 ## TAILWIND
 [language-server.tailwindcss-ls]
