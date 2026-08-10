@@ -58,6 +58,15 @@ css = true
 javascript = true
 
 
+## TWIG (Symfony templates, *.html.twig resolves to the twig language)
+[language-server.twiggy]
+command = "twiggy-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "twig"
+language-servers = ["twiggy", "emmet-ls", "vscode-html-language-server", "tailwindcss-ls"]
+
 ## TAILWIND
 [language-server.tailwindcss-ls]
 command = "tailwindcss-language-server"
