@@ -152,9 +152,16 @@ command = "intelephense"
 args = ["--stdio"]
 required-root-patterns = ["artisan"]
 
+# Laravel-aware helpers: view()/route()/config()/env()/asset() completion,
+# hover, goto and diagnostics. Installed at ~/.local/bin rather than a mason
+# dir so nvim distro churn cannot break it.
+[language-server.laravel-ls]
+command = "laravel-ls"
+required-root-patterns = ["artisan"]
+
 [[language]]
 name = "php"
-language-servers = ["intelephense", "phpactor"]
+language-servers = ["intelephense", "phpactor", "laravel-ls"]
 
 # Blade templates. Highlighting and the html/php/js injections ship with helix;
 # only indent and the formatter need setting. intelephense ignores .blade.php.
@@ -164,7 +171,7 @@ indent = { tab-width = 4, unit = "    " }
 # emmet-language-server falls back to html syntax for unknown language ids and
 # tailwindcss-language-server detects blade on its own, so neither needs an
 # includeLanguages mapping.
-language-servers = ["emmet-ls", "vscode-html-language-server", "tailwindcss-ls"]
+language-servers = ["emmet-ls", "vscode-html-language-server", "tailwindcss-ls", "laravel-ls"]
 formatter = { command = "blade-formatter", args = ["--stdin", "--sort-tailwindcss-classes"] }
 auto-format = true
 
