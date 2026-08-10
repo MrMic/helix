@@ -141,7 +141,7 @@ language-servers = ["intelephense", "phpactor"]
 [[language]]
 name = "blade"
 indent = { tab-width = 4, unit = "    " }
-formatter = { command = "blade-formatter", args = ["--stdin"] }
+formatter = { command = "blade-formatter", args = ["--stdin", "--sort-tailwindcss-classes"] }
 auto-format = true
 
 
