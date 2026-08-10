@@ -1,0 +1,6 @@
+# material_deep_ocean with readable inlay hints.
+# Same literal colours as catppuccin_mocha+.toml, so hints look identical
+# whichever of the two themes is active.
+inherits = "material_deep_ocean"
+
+"ui.virtual.inlay-hint" = { fg = "#7f849c", bg = "#313244", modifiers = ["italic"] }
