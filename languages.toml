@@ -286,15 +286,10 @@ args = []
 
 
 # Properties files (application.properties, etc.)
+# No language server exists for .properties; the grammar handles highlighting.
 [[language]]
 name = "properties"
-language-servers = ["properties-ls"]
-## comment-token = "#"
 indent = { tab-width = 2, unit = "  " }
-
-[language-server.properties-ls]
-command = "vscode-properties-language-server"
-args = ["--stdio"]
 
 # YAML files (application.yml, etc.)
 [[language]]
