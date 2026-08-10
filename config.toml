@@ -59,6 +59,7 @@ hidden = false
 '{' = '}'
 '[' = ']'
 '"' = '"'
+"'" = "'"
 '`' = '`'
 '<' = '>'
 
@@ -81,7 +82,7 @@ tabpad = "·" # Tabs will look like "→···" (depending on tab width)
 [keys.normal]
 C-s = ":w" # Maps the Control-s to the typable command :w which is an alias for :write (save file)
 "C-S-esc" = "extend_line" # Maps Control-Shift-Escape to extend_line
-g = { a = "code_action" } # Maps `ga` to show possible code actions
+g = { A = "code_action" } # Maps `ga` to show possible code actions
 "ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
 "backspace" = { r = ":run-shell-command cargo run", b = ":run-shell-command cargo build", t = ":run-shell-command cargo test", s = [":w", ":config-reload"], o = ":config-open", c = ":buffer-close", g = { r = ":run-shell-command go run .", b = ":run-shell-command go build ." } }
   
@@ -90,11 +91,11 @@ esc = ["collapse_selection", "keep_primary_selection"]
 
 [keys.normal.C-y]
 # Open the file(s) in the current window
-y = ":sh zellij run -c -f -x 10%% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh open"
+# y = ":sh zellij run -c -f -x 10%% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh open"
 # Open the file(s) in a vertical pane
-v = ":sh zellij run -c -f -x 10% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh vsplit"
+# v = ":sh zellij run -c -f -x 10% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh vsplit"
 # Open the file(s) in a horizontal pane
-h = ":sh zellij run -c -f -x 10% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh hsplit"
+# h = ":sh zellij run -c -f -x 10% -y 10%% --width 80%% --height 80%% -- bash ~/.config/helix/yazi-picker.sh hsplit"
 
 [keys.normal.space]
 i = ":toggle lsp.display-inlay-hints"
