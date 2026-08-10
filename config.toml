@@ -4,7 +4,6 @@ theme = "gruvbox_dark_hard"
 [editor]
 line-number = "relative"
 true-color = true
-mouse = true
 cursorline = true
 gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 color-modes = true
@@ -12,8 +11,6 @@ bufferline = "multiple"
 end-of-line-diagnostics = "hint"
 popup-border = "all"  # Shows borders around popups for clarity
 
-completion-trigger-len = 2
-auto-completion = true
 auto-format = true
 auto-save = true
 
@@ -26,11 +23,7 @@ other-lines = "disable"  # Hide diagnostics for other lines
 enable = true
 
 [editor.lsp]
-display-messages = true
 display-inlay-hints = true
-auto-signature-help = true
-enable = true
-
 
 [editor.statusline]
 left = ["mode", "version-control"]
@@ -63,25 +56,9 @@ hidden = false
 '`' = '`'
 '<' = '>'
 
-# [editor.whitespace]
-# render = "all"
-# or control each character
-# [editor.whitespace.render]
-# space = "all"
-# tab = "all"
-# newline = "none"
-
-[editor.whitespace.characters]
-space = "·"
-nbsp = "⍽"
-tab = "→"
-newline = "⏎"
-tabpad = "·" # Tabs will look like "→···" (depending on tab width)
-
 # At most one section each of 'keys.normal', 'keys.insert' and 'keys.select'
 [keys.normal]
 C-s = ":w" # Maps the Control-s to the typable command :w which is an alias for :write (save file)
-"C-S-esc" = "extend_line" # Maps Control-Shift-Escape to extend_line
 g = { A = "code_action" } # Maps `ga` to show possible code actions
 "ret" = ["open_below", "normal_mode"] # Maps the enter key to open_below then re-enter normal mode
 "backspace" = { r = ":run-shell-command cargo run", b = ":run-shell-command cargo build", t = ":run-shell-command cargo test", s = [":w", ":config-reload"], o = ":config-open", c = ":buffer-close", g = { r = ":run-shell-command go run .", b = ":run-shell-command go build ." } }
@@ -108,6 +85,3 @@ pagedown = ":bn"
 [keys.insert]
 "A-x" = "normal_mode" # Maps Alt-X to enter normal mode
 j = { k = "normal_mode" } # Maps `jk` to exit insert mode
-
-# create a new minor mode bound to `+`
-[keys.normal."+"]
