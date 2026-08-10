@@ -71,9 +71,9 @@ args = [
   "ngserver",
   "--stdio",
   "--tsProbeLocations",
-  "/home/mic/.nvm/versions/node/v20.13.1/lib/node_modules/typescript/lib, ./node_modules",
+  "/home/mic/.nvm/versions/node/v22.21.1/lib/node_modules/typescript/lib, ./node_modules",
   "--ngProbeLocations",
-  "/home/mic/.nvm/versions/node/v20.13.1/lib/node_modules/@angular/language-server/bin, ./node_modules",
+  "/home/mic/.nvm/versions/node/v22.21.1/lib/node_modules/@angular/language-server/bin, ./node_modules",
 ]
 
 [language-server.eslint]
