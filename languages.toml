@@ -58,6 +58,11 @@ css = true
 javascript = true
 
 
+## TAILWIND
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
 ## EMMET LSP
 [language-server.emmet-ls]
 command = "emmet-language-server"
@@ -156,9 +161,10 @@ language-servers = ["intelephense", "phpactor"]
 [[language]]
 name = "blade"
 indent = { tab-width = 4, unit = "    " }
-# emmet-language-server falls back to html syntax for unknown language ids,
-# so blade needs no includeLanguages mapping.
-language-servers = ["emmet-ls"]
+# emmet-language-server falls back to html syntax for unknown language ids and
+# tailwindcss-language-server detects blade on its own, so neither needs an
+# includeLanguages mapping.
+language-servers = ["emmet-ls", "vscode-html-language-server", "tailwindcss-ls"]
 formatter = { command = "blade-formatter", args = ["--stdin", "--sort-tailwindcss-classes"] }
 auto-format = true
 
