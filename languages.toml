@@ -120,17 +120,21 @@ language-servers = ["lua-language-server"]
 
 
 ## PHP
+# Each server is gated on a marker file at the project root, so Laravel gets
+# intelephense and Symfony gets phpactor. Matching is top-level only.
 [language-server.phpactor]
 command = "phpactor"
 args = ["language-server"]
+required-root-patterns = ["symfony.lock"]
 
 [language-server.intelephense]
 command = "intelephense"
 args = ["--stdio"]
+required-root-patterns = ["artisan"]
 
 [[language]]
 name = "php"
-language-servers = ["intelephense"]
+language-servers = ["intelephense", "phpactor"]
 
 
 ## PYTHON
