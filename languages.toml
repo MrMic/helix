@@ -141,6 +141,9 @@ language-servers = ["intelephense", "phpactor"]
 [[language]]
 name = "blade"
 indent = { tab-width = 4, unit = "    " }
+# emmet-language-server falls back to html syntax for unknown language ids,
+# so blade needs no includeLanguages mapping.
+language-servers = ["emmet-ls"]
 formatter = { command = "blade-formatter", args = ["--stdin", "--sort-tailwindcss-classes"] }
 auto-format = true
 
