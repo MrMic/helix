@@ -1,5 +1,6 @@
 # theme = "tokyonight_moon"
-theme = "gruvbox_dark_hard"
+# theme = "gruvbox_dark_hard"
+theme = "catppuccin_mocha+"
 
 [editor]
 line-number = "relative"

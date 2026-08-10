@@ -1,0 +1,7 @@
+# catppuccin_mocha with readable inlay hints.
+# Colours are hardcoded rather than palette names so the hints look the same
+# in every theme that gets this treatment. Copy these two lines into a
+# "<theme>+.toml" that inherits any other theme to keep them consistent.
+inherits = "catppuccin_mocha"
+
+"ui.virtual.inlay-hint" = { fg = "#7f849c", bg = "#313244", modifiers = ["italic"] }
