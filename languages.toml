@@ -136,6 +136,14 @@ required-root-patterns = ["artisan"]
 name = "php"
 language-servers = ["intelephense", "phpactor"]
 
+# Blade templates. Highlighting and the html/php/js injections ship with helix;
+# only indent and the formatter need setting. intelephense ignores .blade.php.
+[[language]]
+name = "blade"
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "blade-formatter", args = ["--stdin"] }
+auto-format = true
+
 
 ## PYTHON
 [language-server.pyright.config.python.analysis]
