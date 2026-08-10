@@ -33,7 +33,7 @@ args = ["--stdio"]
 name = "css"
 formatter = { command = 'prettier', args = ["--parser", "css"] }
 auto-format = true
-language-servers = ["css-language-server"]
+language-servers = ["css-language-server", "emmet-ls"]
 
 
 ## HTML
@@ -62,6 +62,21 @@ javascript = true
 [language-server.emmet-ls]
 command = "emmet-language-server"
 args = ["--stdio"]
+
+# Without this, tsx falls back to html syntax and emits class= instead of
+# className=. jsx is recognised on its own.
+[language-server.emmet-ls.config.includeLanguages]
+tsx = "jsx"
+
+# jsx/tsx are separate languages in helix, so emmet has to be listed on each.
+# The default server list is repeated because a user list replaces it.
+[[language]]
+name = "jsx"
+language-servers = ["typescript-language-server", "emmet-ls"]
+
+[[language]]
+name = "tsx"
+language-servers = ["typescript-language-server", "emmet-ls"]
 
 
 ## TYPESCRIPT
@@ -194,7 +209,7 @@ injection-regex = "vue"
 roots = ["package.json"]
 scope = "text.html.vue"
 formatter = { command = "prettier", args = ["--parser", "vue"] }
-language-servers = ["vue-language-server"]
+language-servers = ["vue-language-server", "emmet-ls"]
 
 
 ## JAVA - Optimized for Quarkus and Mockito
