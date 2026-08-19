@@ -65,7 +65,7 @@ args = ["--stdio"]
 
 [[language]]
 name = "twig"
-language-servers = ["twiggy", "emmet-ls", "vscode-html-language-server", "tailwindcss-ls"]
+language-servers = ["twiggy", "symfony-lsp", "emmet-ls", "vscode-html-language-server", "tailwindcss-ls"]
 # djlint has no twig profile; jinja shares the {% %} / {{ }} syntax.
 formatter = { command = "djlint", args = ["-", "--reformat", "--quiet", "--profile=jinja"] }
 auto-format = true
@@ -171,9 +171,17 @@ required-root-patterns = ["artisan"]
 command = "laravel-ls"
 required-root-patterns = ["artisan"]
 
+# Symfony Language Tools (symfony/language-tools). Single static binary at
+# ~/.local/bin/symfony-lsp; no args = stdio. Gated on symfony.lock like phpactor
+# so it stays out of non-Symfony (and Laravel) projects. Covers services,
+# routes, config, twig and translations; defaults are fine so no config block.
+[language-server.symfony-lsp]
+command = "symfony-lsp"
+required-root-patterns = ["symfony.lock"]
+
 [[language]]
 name = "php"
-language-servers = ["intelephense", "phpactor", "laravel-ls"]
+language-servers = ["intelephense", "phpactor", "laravel-ls", "symfony-lsp"]
 
 # Blade templates. Highlighting and the html/php/js injections ship with helix;
 # only indent and the formatter need setting. intelephense ignores .blade.php.
@@ -349,7 +357,7 @@ indent = { tab-width = 2, unit = "  " }
 # YAML files (application.yml, etc.)
 [[language]]
 name = "yaml"
-language-servers = ["yaml-language-server"]
+language-servers = ["yaml-language-server", "symfony-lsp"]
 
 [language-server.yaml-language-server]
 command = "yaml-language-server"
