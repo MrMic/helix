@@ -1,5 +1,10 @@
 # language.toml config for inlay hit
 
+## AI completion (helix-gpt) — shows in the normal completion popup, not ghost text
+## Copilot handler; token read from ~/.config/github-copilot via the wrapper.
+[language-server.gpt]
+command = "/home/mic/.config/helix/helix-gpt.sh"
+
 ## RUST
 [language-server.rust-analyzer.config]
 check.command = "clippy"
@@ -7,7 +12,7 @@ check.command = "clippy"
 [[language]]
 name = "rust"
 auto-format = true
-language-servers = ["rust-analyzer"]
+language-servers = ["rust-analyzer", "gpt"]
 
 
 ## GO
