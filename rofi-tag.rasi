@@ -1,0 +1,10 @@
+* {
+    background-color: #1e1e2e;
+    text-color:       #ffffff;
+}
+window   { width: 400px; border: 2px; border-color: #89b4fa; }
+mainbox  { padding: 8px; }
+inputbar { children: [ prompt, entry ]; spacing: 8px; }
+prompt   { text-color: #89b4fa; }
+entry    { text-color: #ffffff; placeholder: "tag"; placeholder-color: #888888; }
+listview { lines: 0; }
