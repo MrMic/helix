@@ -65,6 +65,8 @@ g = { A = "code_action" } # Maps `ga` to show possible code actions
 "backspace" = { r = ":run-shell-command cargo run", b = ":run-shell-command cargo build", t = ":run-shell-command cargo test", s = [":w", ":config-reload"], o = ":config-open", c = ":buffer-close", a = ":sh bash ~/.config/helix/herdr-split.sh right claude", g = { r = ":run-shell-command go run .", b = ":run-shell-command go build ." } }
 
 esc = ["collapse_selection", "keep_primary_selection"]
+C-A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+C-A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 
 # herdr panes. herdr-split.sh resolves helix's own pane id, splits it, and
 # exports HX_PANE/HERDR_PANE so the spawned command can send text back.
@@ -84,3 +86,7 @@ pagedown = ":bn"
 [keys.insert]
 "A-x" = "normal_mode" # Maps Alt-X to enter normal mode
 j = { k = "normal_mode" } # Maps `jk` to exit insert mode
+
+[keys.select]
+C-A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+C-A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
