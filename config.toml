@@ -92,5 +92,7 @@ j = { k = "normal_mode" } # Maps `jk` to exit insert mode
 T = ":pipe bash ~/.config/helix/htag.sh"
 # Strip the outermost <tag>...</tag> from the selection (inverse of T).
 A-t = ":pipe perl -0777 -pe 's{\\A(\\s*)<[^>]+>(.*)</[^>]+>(\\s*)\\z}{$1$2$3}s'"
+# Rename the surrounding tag, keeping attributes (nvim-surround's cst).
+A-r = ":pipe bash ~/.config/helix/retag.sh"
 C-A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 C-A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
