@@ -71,8 +71,10 @@ args = ["--stdio"]
 [[language]]
 name = "twig"
 language-servers = ["twiggy", "symfony-lsp", "emmet-ls", "vscode-html-language-server", "tailwindcss-ls"]
-# djlint has no twig profile; jinja shares the {% %} / {{ }} syntax.
-formatter = { command = "djlint", args = ["-", "--reformat", "--quiet", "--profile=jinja"] }
+# prettier + @zackad/prettier-plugin-twig (real twig/HTML reflow, keeps nesting).
+# djlint's jinja profile flattened all indentation; the wrapper resolves the
+# global prettier plugin at runtime. See twig-fmt.sh.
+formatter = { command = "bash", args = ["/home/mic/.config/helix/twig-fmt.sh"] }
 auto-format = true
 
 ## TAILWIND
